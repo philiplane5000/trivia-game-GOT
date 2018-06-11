@@ -6,36 +6,38 @@ let numThree = new QuestionGenerator("The phrase 'Valar Morghulis' or 'all men m
 let numFour = new QuestionGenerator("American actor Peter Dinklage, who plays Tyrion Lannister, also had a starring role in this fantasy franchise:", "Lord of the Rings", "Highlander", "The Chronicles of Narnia", "The Legend of Zelda", "The Chronicles of Narnia", "Dinklage played Trumpkin in the 2008 film \"The Chronicles of Narnia: Prince Caspian.\" He was not only the first person cast for the \"Game of Thrones\" series, but also the only person author George R.R. Martin wanted to play Tyrion.");
 let numFive = new QuestionGenerator("What is the only thing that can put out volatile Wildfire?", "Sand", "Water", "Dragon's blood", "Sunlight", "Sand", "So unstable that even strong sunlight can set it ablaze, Wildfire is an extremely volatile substance that can only be extinguished with copious amounts of sand.");
 
-let allQuestions = [numOne, numTwo, numThree, numFour, numFive];
+let triviaArr = [numOne, numTwo, numThree, numFour, numFive];
 let correctTally = 0;
 let incorrectTally = 0;
+
 let timeRanOut = false;
 
-let counter = 60;
-let pageNumber = 0;
+let questionTimerStart = 30; /*countdown timer to start at 30 upon page load */
+let moreInfoTimerStart = 10;
+let questionNum = 0; /*questionNumber = number that will determine which 'page'/question to render using renderQuestion and triviaQuestionArr array */
 
 
-function renderQuestion(num) {
+function renderQuestion(arrayOfQuestions, questionNumber) {
 
     $('.question-row')
         .html(`
-            <div class="col-4"><h4>${num.ask()}</h4></div>
+            <div class="col-4"><h4>${triviaArr[questionNum].ask()}</h4></div>
         `)
 
     $('.answer-row')
         .html(`
             <div class="col-4">
                 <ul>
-                    <li class="clickToGuess">${num.optionA}</li>
-                    <li class="clickToGuess">${num.optionB}</li>
-                    <li class="clickToGuess">${num.optionC}</li>
-                    <li class="clickToGuess">${num.optionD}</li>
+                    <li class="clickToGuess">${triviaArr[questionNum].optionA}</li>
+                    <li class="clickToGuess">${triviaArr[questionNum].optionB}</li>
+                    <li class="clickToGuess">${triviaArr[questionNum].optionC}</li>
+                    <li class="clickToGuess">${triviaArr[questionNum].optionD}</li>
                 <ul>
             </div>
         `)
 
     $('.clickToGuess').on('click', function(){
-        if($(this).text() === num.Answer) {
+        if($(this).text() === triviaArr[questionNum].Answer) {
             alert('CORRECT!');
             correctTally++;
         } else {
@@ -52,7 +54,7 @@ function renderScore() {
     console.log(`TOTAL INCORRECT: ${incorrectTally}`);
 }
 
-renderQuestion(allQuestions[1]);
+renderQuestion(triviaArr[questionNum]);
 
 
 
