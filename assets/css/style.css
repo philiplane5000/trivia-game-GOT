@@ -18,5 +18,9 @@ h1, h4, ul {
     visibility: hidden;
 }
 
+li:hover {
+    font-weight: 700;
+}
+
 /* media query to shrink font sizes for phone screen */
 

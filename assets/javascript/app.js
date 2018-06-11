@@ -1,5 +1,8 @@
 console.log('CONNECTED');
 
+$(document).ready(function() {
+
+
 //https://www.fromthegrapevine.com/quizzes/arts/quiz-trivia-game-of-thrones
 
 let numOne = new QuestionGenerator("How did Daenerys Targaryen eventually hatch her dragon eggs?", "In a funeral pyre", "In a lightning storm", "In a fireplace", "In a frozen cave", "In a funeral pyre", "At the end of Season 1, Daenerys Targaryen placed her three dragon eggs on the funeral pyre of her late husband. She then walked into the flames and emerged from the ashes the next morning holding three newly hatched dragons.");
@@ -10,14 +13,18 @@ let numFive = new QuestionGenerator("What is the only thing that can put out vol
 
 let triviaArr = [numOne, numTwo, numThree, numFour, numFive];
 let correctTally = 0;
+let correctAnswersArr = [];
 let incorrectTally = 0;
+let incorrectAnswersArr = [];
 
 let questionTimerRunning = false;
 let moreInfoTimerRunning = false;
 let intervalIdOne;
 let intervalIdTwo;
 
-let questionNum = 0; /*questionNumber = number that will determine which 'page'/question to render using renderQuestion and triviaQuestionArr array */
+let questionNum = 0;
+
+//TIMER TO TRIGGER NEW PAGES WITHOUT USER INPUT: (THO USER WILL ALSO BE ABLE TO INFLUENCE EVENTS WITH KEY OR BUTTON PRESS)
 
 let timer = {
     questionTimer: 30,
@@ -42,36 +49,58 @@ let timer = {
     },
 
     questionTimerCountdown: function() {
-        if(timer.questionTimer <= 0) {
-            timer.reset();
-            renderMoreInfoPage(triviaArr, questionNum);
-            //start moreInfoPage Timer(?)
-            //moreInfoPageTimer = 0 --> increment questionNum
-            //OR on "NEXT" btn click --> increment questionNum
-        } else {
+        if (!(timer.questionTimer <= 0)) {
             timer.questionTimer--;
             let timeLeft = timer.questionTimer;
             console.log(timeLeft);
             $('#time-remaining').text(`${timeLeft}`);
+        } else {
+            timer.stopQuestionTimer();
+            renderMoreInfoPage(triviaArr, questionNum);
+            (timer.startMoreInfoTimer());
+
         }
-        /*if timer.questionTimer <= 0 increment page number and render new page*/
-        /*alternately, page click or guess will reset timer and render new page */
+    },
+
+    stopQuestionTimer: function() {
+        clearInterval(intervalIdOne);
+        questionTimerRunning = false;        
+    },
+
+    moreInfoTimerCountdown: function() {
+        if(!(timer.moreInfoTimer <= 0)) {
+            timer.moreInfoTimer--;
+            let timeLeft = timer.moreInfoTimer;
+            console.log(timeLeft);
+            $('#time-remaining').text(`${timeLeft}`);
+        } else {
+            timer.stopMoreInfoTimer();
+            timer.triggerNext();
+        }
+    },
+
+    stopMoreInfoTimer: function() {
+            clearInterval(intervalIdTwo);
+            moreInfoTimerRunning = false;
+    },
+
+    triggerNext: function() {
+        if(questionNum !== triviaArr.length-1){
+        timer.reset();
+        questionNum++;
+        renderQuestionPage(triviaArr, questionNum);
+        timer.startQuestionTimer();
+        } else {
+        renderEndGame();
+        }
     }
 
 }
 
-function renderMoreInfoPage(triviaArr, questionNum) {
-    
-    $('.more-info').html(`
-        <div class="col-6"><h3>MORE INFO:</h3></div>
-    `)
-    $('.more-info-row').html(`
-    <div class="col-6"><h6>${triviaArr[questionNum].moreInfo}</h6></div>
-    `)
-}
-
 function renderQuestionPage(triviaArr, questionNum) {
 
+    $('.timer-row').removeClass('hidden');
+   
     $('.question-row')
         .html(`
             <div class="col-4"><h4>${triviaArr[questionNum].ask()}</h4></div>
@@ -93,27 +122,54 @@ function renderQuestionPage(triviaArr, questionNum) {
         if($(this).text() === triviaArr[questionNum].Answer) {
             alert('CORRECT!');
             correctTally++;
+
+            let correctGuess = $(this).text();
+            correctAnswersArr.push(correctGuess);
+            console.log(correctAnswersArr);
         } else {
             alert('INCORRECT!');
             incorrectTally++;
+
+            let incorrectGuess = $(this).text();
+            incorrectAnswersArr.push(incorrectGuess);
+            console.log(incorrectAnswersArr);
+
             }
         })
     
-} /*END RENDER QUESTION()*/
+} /*END RENDER-QUESTION-PAGE()*/
 
-function renderScore() {
-    // RENDER SCORES ON SCREEN WHEN GAME TIMER RUNS OUT
-    console.log(`TOTAL CORRECT: ${correctTally}`);
-    console.log(`TOTAL INCORRECT: ${incorrectTally}`);
+function renderMoreInfoPage(triviaArr, questionNum) {
+    $('.timer-row').toggleClass('hidden');
+
+    $('.more-info').html(`
+        <div class="col-6"><h3>MORE INFO:</h3></div>
+    `)
+    $('.more-info-row').html(`
+    <div class="col-6"><h6>${triviaArr[questionNum].moreInfo}</h6></div>
+    `)
 }
 
-// renderQuestion(triviaArr, questionNum);
-timer.startQuestionTimer();
-renderQuestionPage(triviaArr, questionNum);
-// renderMoreInfoPage(triviaArr, questionNum);
+function renderEndGame() {
 
+    $('.title').html(`
+    <h1>FINISH!</h1>
+    `)
 
+    $('.timer-row').addClass('hidden');
 
+    $('.end-game').html(`
+    <div class="col-5 border border-success"><h4>You answered ${correctTally} Correct</h4></div>
+    <div class="col-5 border border-danger"><h4>You answered ${incorrectTally} Incorrectly</h4></div>
+    `);
+
+    $('.more-info-row').empty();
+    $('.more-info-row').html(`
+    <div class="col-5 border border-success"><h4>CONVERT CORRECTARRAY TO A LIST</h4></div>
+    <div class="col-5 border border-danger"><h4>CONVERT INCORRECTARRAY TO A LIST</h4></div>
+    `);
+
+}
 
 //QUESTION CONSTRUCTOR:
 function QuestionGenerator(Question, optionA, optionB, optionC, optionD, Answer, moreInfo) {
@@ -129,3 +185,22 @@ function QuestionGenerator(Question, optionA, optionB, optionC, optionD, Answer,
     }
 };
 
+function startGame(){
+    correctTally = 0;
+    incorrectTally = 0;
+    questionTimerRunning = false;
+    moreInfoTimerRunning = false;
+    intervalIdOne;
+    intervalIdTwo;
+    questionNum = 0;
+    renderQuestionPage(triviaArr, questionNum);
+    timer.startQuestionTimer();
+}
+
+// renderEndGame();
+startGame();
+
+
+
+
+}); /*end document.ready*/
