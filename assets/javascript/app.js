@@ -6,6 +6,41 @@ let numThree = new QuestionGenerator("The phrase 'Valar Morghulis' or 'all men m
 let numFour = new QuestionGenerator("American actor Peter Dinklage, who plays Tyrion Lannister, also had a starring role in this fantasy franchise:", "Lord of the Rings", "Highlander", "The Chronicles of Narnia", "The Legend of Zelda", "The Chronicles of Narnia", "Dinklage played Trumpkin in the 2008 film \"The Chronicles of Narnia: Prince Caspian.\" He was not only the first person cast for the \"Game of Thrones\" series, but also the only person author George R.R. Martin wanted to play Tyrion.");
 let numFive = new QuestionGenerator("What is the only thing that can put out volatile Wildfire?", "Sand", "Water", "Dragon's blood", "Sunlight", "Sand", "So unstable that even strong sunlight can set it ablaze, Wildfire is an extremely volatile substance that can only be extinguished with copious amounts of sand.");
 
+let allQuestions = [numOne, numTwo, numThree, numFour, numFive];
+
+function renderQuestion(num) {
+
+    $('.question-row')
+        .html(`
+            <div class="col-4"><h4>${num.Question}</h4></div>
+        `)
+
+    $('.answer-row')
+        .html(`
+            <div class="col-4">
+                <ul>
+                    <li class="clickToGuess">${num.optionA}</li>
+                    <li class="clickToGuess">${num.optionB}</li>
+                    <li class="clickToGuess">${num.optionC}</li>
+                    <li class="clickToGuess">${num.optionD}</li>
+                <ul>
+            </div>
+        `)
+
+    $('.clickToGuess').on('click', function(){
+        if($(this).text() === num.Answer) {
+            console.log('CORRECT!');
+        } else {
+                console.log('TRY AGAIN!');
+            }
+        })
+    
+} /*END RENDER QUESTION()*/
+
+renderQuestion(allQuestions[0]);
+
+
+
 
 //QUESTION CONSTRUCTOR:
 function QuestionGenerator(Question, optionA, optionB, optionC, optionD, Answer, moreInfo) {
