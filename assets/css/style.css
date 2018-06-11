@@ -14,5 +14,9 @@ h1, h4, ul {
     text-align: center;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 /* media query to shrink font sizes for phone screen */
 

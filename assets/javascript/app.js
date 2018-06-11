@@ -17,8 +17,6 @@ let moreInfoTimerRunning = false;
 let intervalIdOne;
 let intervalIdTwo;
 
-let questionTimerStart = 30; /*countdown timer to start at 30 upon page load */
-let moreInfoTimerStart = 10;
 let questionNum = 0; /*questionNumber = number that will determine which 'page'/question to render using renderQuestion and triviaQuestionArr array */
 
 let timer = {
@@ -44,22 +42,35 @@ let timer = {
     },
 
     questionTimerCountdown: function() {
+        if(timer.questionTimer <= 0) {
+            timer.reset();
+            renderMoreInfoPage(triviaArr, questionNum);
+            //start moreInfoPage Timer(?)
+            //moreInfoPageTimer = 0 --> increment questionNum
+            //OR on "NEXT" btn click --> increment questionNum
+        } else {
+            timer.questionTimer--;
+            let timeLeft = timer.questionTimer;
+            console.log(timeLeft);
+            $('#time-remaining').text(`${timeLeft}`);
+        }
         /*if timer.questionTimer <= 0 increment page number and render new page*/
         /*alternately, page click or guess will reset timer and render new page */
-        timer.questionTimer--;
-        let timeLeft = timer.questionTimer;
-        console.log(timeLeft);
-        $('#time-remaining').text(`${timeLeft}`);
     }
 
 }
 
-
-function questionPageTimer(num) {
-
+function renderMoreInfoPage(triviaArr, questionNum) {
+    
+    $('.more-info').html(`
+        <div class="col-6"><h3>MORE INFO:</h3></div>
+    `)
+    $('.more-info-row').html(`
+    <div class="col-6"><h6>${triviaArr[questionNum].moreInfo}</h6></div>
+    `)
 }
 
-function renderQuestion(arrayOfQuestions, questionNumber) {
+function renderQuestionPage(triviaArr, questionNum) {
 
     $('.question-row')
         .html(`
@@ -96,7 +107,10 @@ function renderScore() {
     console.log(`TOTAL INCORRECT: ${incorrectTally}`);
 }
 
-renderQuestion(triviaArr[questionNum]);
+// renderQuestion(triviaArr, questionNum);
+timer.startQuestionTimer();
+renderQuestionPage(triviaArr, questionNum);
+// renderMoreInfoPage(triviaArr, questionNum);
 
 
 
