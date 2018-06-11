@@ -87,9 +87,9 @@ let timer = {
     triggerNext: function() {
         if(questionNum !== triviaArr.length-1){
         timer.reset();
+        timer.startQuestionTimer();
         questionNum++;
         renderQuestionPage(triviaArr, questionNum);
-        timer.startQuestionTimer();
         } else {
         renderEndGame();
         }
