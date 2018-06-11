@@ -7,12 +7,19 @@ let numFour = new QuestionGenerator("American actor Peter Dinklage, who plays Ty
 let numFive = new QuestionGenerator("What is the only thing that can put out volatile Wildfire?", "Sand", "Water", "Dragon's blood", "Sunlight", "Sand", "So unstable that even strong sunlight can set it ablaze, Wildfire is an extremely volatile substance that can only be extinguished with copious amounts of sand.");
 
 let allQuestions = [numOne, numTwo, numThree, numFour, numFive];
+let correctTally = 0;
+let incorrectTally = 0;
+let timeRanOut = false;
+
+let counter = 60;
+let pageNumber = 0;
+
 
 function renderQuestion(num) {
 
     $('.question-row')
         .html(`
-            <div class="col-4"><h4>${num.Question}</h4></div>
+            <div class="col-4"><h4>${num.ask()}</h4></div>
         `)
 
     $('.answer-row')
@@ -29,15 +36,23 @@ function renderQuestion(num) {
 
     $('.clickToGuess').on('click', function(){
         if($(this).text() === num.Answer) {
-            console.log('CORRECT!');
+            alert('CORRECT!');
+            correctTally++;
         } else {
-                console.log('TRY AGAIN!');
+            alert('INCORRECT!');
+            incorrectTally++;
             }
         })
     
 } /*END RENDER QUESTION()*/
 
-renderQuestion(allQuestions[0]);
+function renderScore() {
+    // RENDER SCORES ON SCREEN WHEN GAME TIMER RUNS OUT
+    console.log(`TOTAL CORRECT: ${correctTally}`);
+    console.log(`TOTAL INCORRECT: ${incorrectTally}`);
+}
+
+renderQuestion(allQuestions[1]);
 
 
 
