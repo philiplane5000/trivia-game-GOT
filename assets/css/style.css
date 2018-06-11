@@ -1,7 +1,13 @@
+body {
+    background-image: url('../images/background-img.jpg');
+    background-position: center;
+}
+
 .container {
     margin-top: 50px;
     border-radius: 10px;    
     padding: 25px;
+    background-color: rgba(250,250,250, 0.8);
 }
 
 h1, h4, ul {
