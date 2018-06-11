@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Trivia Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+</head>
+<body>
+
+    <div class="container border border-primary">
+
+        <!-- STATIC: -->
+        <div class="row justify-content-center">
+            <div class="col-6"><h1>TOTALLY TRIVIAL TRIVIA!</h1></div>
+        </div>
+
+        <!-- ONLY TIME REMAINING SPAN IS DYNAMIC(?): -->
+        <div class="row justify-content-center timer-row">
+            <div class="col-6"><h4>Time Remaining: <span id="time-remaining">30</span> Seconds</h4></div> 
+        </div>
+        
+        <!-- DYNAMIC: -->
+        <div class="row justify-content-center question-row">
+            <div class="col-4"><h4>What is the meaning of life?</h4></div>
+        </div>
+
+        <div class="row justify-content-center answer-row">
+                <div class="col-4">
+                <ul>
+                    <li>CORRECT</li>
+                    <li>INCORRECT</li>
+                    <li>INCORRECT</li>
+                    <li>INCORRECT</li>
+                </ul>
+            </div>
+        </div>
+        <!-- end DYNAMIC -->
+    
+    </div>
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <script src="./assets/javascript/app.js"></script>
+</body>
+</html>

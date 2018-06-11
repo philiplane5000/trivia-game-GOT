@@ -1,0 +1,12 @@
+.container {
+    margin-top: 50px;
+    border-radius: 10px;    
+    padding: 25px;
+}
+
+h1, h4, ul {
+    text-align: center;
+}
+
+/* media query to shrink font sizes for phone screen */
+
