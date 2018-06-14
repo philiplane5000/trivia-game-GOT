@@ -1,10 +1,10 @@
-# TriviaGame
 
-## GAME OF THRONES THEME
+# GAME OF THRONES: TRIVIA
+* Answer 10 questions to reveal whether you have what it takes to sit the IRON THRONE
+* Keep one eye on the clock!
 
 ### IMPROVEMENTS:
-* User input should prompt new question
-* More Info page should have 'next question' button
-* EndGame page should have 'restart' button
-* EndGame renders unique image or title according to how well user answered
+* [QUESTIONS](https://www.fromthegrapevine.com/quizzes/arts/quiz-trivia-game-of-thrones)
+* Appropriate Images to Accompany MORE INFO pages (?)
+
 
