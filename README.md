@@ -8,5 +8,7 @@
 * Thank you to www.fromthegrapevine.come for the: [QUESTIONS](https://www.fromthegrapevine.com/quizzes/arts/quiz-trivia-game-of-thrones)
 
 <hr>
-<a href="https://philiptd5000.github.io/trivia-game-GOT/"><h3 align="center">[CLICK HERE TO PLAY]</h3></a>
+
+<a href="https://philiptd5000.github.io/trivia-game-GOT/" target="_blank"><h3 align="center">[CLICK HERE TO PLAY]</h3></a>
+
 <hr>
