@@ -7,4 +7,4 @@
 
 * Thank you to www.fromthegrapevine.come for the: [QUESTIONS](https://www.fromthegrapevine.com/quizzes/arts/quiz-trivia-game-of-thrones)
 
-#### [CLICK HERE TO PLAY](https://philiptd5000.github.io/trivia-game-GOT/)
+## [CLICK HERE TO PLAY](https://philiptd5000.github.io/trivia-game-GOT/)
